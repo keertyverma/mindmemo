@@ -14,6 +14,7 @@ const app = express();
 
 // middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use(`/${config.get("server.app_name")}/api`, routes);

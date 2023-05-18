@@ -16,4 +16,18 @@ const createTask = async (req, res) => {
   res.status(StatusCodes.CREATED).json(result);
 };
 
-module.exports = { getAllTasks, createTask };
+const getTaskById = async (req, res) => {
+  logger.debug("GET Request -> Get task by id");
+
+  const id = req.params.id;
+  const task = await Task.findById(id);
+  if (task) {
+    res.status(StatusCodes.OK).json(task);
+  } else {
+    const error = `No task found with id = ${id}`;
+    logger.error(error);
+    res.status(StatusCodes.NOT_FOUND).json({ message: error });
+  }
+};
+
+module.exports = { getAllTasks, createTask, getTaskById };
