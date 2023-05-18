@@ -12,20 +12,8 @@ const createTask = async (req, res) => {
   logger.debug("POST Request -> Creating task");
   const { title, content } = req.body;
 
-  try {
-    const result = await Task.create({ title, content });
-    res.status(StatusCodes.CREATED).json(result);
-  } catch (exc) {
-    let validationErrors = [];
-    for (field in exc.errors) {
-      validationErrors.push(exc.errors[field].message);
-    }
-
-    // Bad request error
-    res
-      .status(StatusCodes.BAD_REQUEST)
-      .json({ name: "ValidationError", message: validationErrors.join(", ") });
-  }
+  const result = await Task.create({ title, content });
+  res.status(StatusCodes.CREATED).json(result);
 };
 
 module.exports = { getAllTasks, createTask };

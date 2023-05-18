@@ -2,9 +2,12 @@ require("dotenv").config({ path: __dirname + "/.env" });
 require("express-async-errors");
 const express = require("express");
 const config = require("config");
+const mongoose = require("mongoose");
+
 const logger = require("./utils/logger");
 const routes = require("./routes");
-const mongoose = require("mongoose");
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -14,6 +17,10 @@ app.use(express.json());
 
 // routes
 app.use(`/${config.get("server.app_name")}/api`, routes);
+
+// error handler
+app.use(notFound);
+app.use(errorHandlerMiddleware);
 
 // connect with db
 mongoose
