@@ -1,0 +1,25 @@
+{
+  "name": "mindmemo",
+  "version": "1.0.0",
+  "description": "To manage task.",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "nodemon server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keertyverma/mindmemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keertyverma/mindmemo/issues"
+  },
+  "homepage": "https://github.com/keertyverma/mindmemo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
