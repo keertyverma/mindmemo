@@ -1,4 +1,5 @@
 require("dotenv").config({ path: __dirname + "/.env" });
+require("express-async-errors");
 const express = require("express");
 const config = require("config");
 const logger = require("./utils/logger");
@@ -7,6 +8,9 @@ const mongoose = require("mongoose");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+
+// middlewares
+app.use(express.json());
 
 // routes
 app.use(`/${config.get("server.app_name")}/api`, routes);
