@@ -1,7 +1,17 @@
 const { StatusCodes } = require("http-status-codes");
+const Joi = require("joi");
 const { Task } = require("../models/task");
 const logger = require("../utils/logger");
-const { NotFoundError } = require("../errors");
+const { NotFoundError, BadRequestError } = require("../errors");
+
+const validateTask = (task) => {
+  const schema = Joi.object({
+    title: Joi.string(),
+    content: Joi.string(),
+  });
+
+  return schema.validate(task);
+};
 
 const getAllTasks = async (req, res) => {
   logger.debug("GET Request -> Getting all tasks");
@@ -11,6 +21,13 @@ const getAllTasks = async (req, res) => {
 
 const createTask = async (req, res) => {
   logger.debug("POST Request -> Creating task");
+
+  // validate input
+  const { error } = validateTask(req.body);
+  if (error) {
+    throw new BadRequestError(error.details[0].message);
+  }
+
   const { title, content } = req.body;
 
   const result = await Task.create({ title, content });
@@ -32,6 +49,12 @@ const getTaskById = async (req, res) => {
 
 const updateTaskById = async (req, res) => {
   logger.debug("PATCH Request -> Update task by ID");
+
+  // validate input
+  const { error } = validateTask(req.body);
+  if (error) {
+    throw new BadRequestError(error.details[0].message);
+  }
 
   id = req.params.id;
   const updatedTask = await Task.findByIdAndUpdate(
