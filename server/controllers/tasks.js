@@ -45,8 +45,29 @@ const updateTaskById = async (req, res) => {
   } else {
     const error = `No task found with id = ${id}`;
     logger.error(error);
-    res.status(StatusCodes.BAD_GATEWAY).json({ message: error });
+    res.status(StatusCodes.NOT_FOUND).json({ message: error });
   }
 };
 
-module.exports = { getAllTasks, createTask, getTaskById, updateTaskById };
+const deleteTaskById = async (req, res) => {
+  logger.debug("DELETE Request -> Delete task by ID");
+
+  id = req.params.id;
+  const deletedTask = await Task.findByIdAndDelete(id);
+
+  if (deletedTask) {
+    res.status(StatusCodes.OK).json(deletedTask);
+  } else {
+    const error = `No task found with id = ${id}`;
+    logger.error(error);
+    res.status(StatusCodes.NOT_FOUND).json({ message: error });
+  }
+};
+
+module.exports = {
+  getAllTasks,
+  createTask,
+  getTaskById,
+  updateTaskById,
+  deleteTaskById,
+};
