@@ -30,4 +30,23 @@ const getTaskById = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasks, createTask, getTaskById };
+const updateTaskById = async (req, res) => {
+  logger.debug("PATCH Request -> Update task by ID");
+
+  id = req.params.id;
+  const updatedTask = await Task.findByIdAndUpdate(
+    id,
+    { title: req.body.title, content: req.body.content },
+    { new: true }
+  );
+
+  if (updatedTask) {
+    res.status(StatusCodes.OK).json(updatedTask);
+  } else {
+    const error = `No task found with id = ${id}`;
+    logger.error(error);
+    res.status(StatusCodes.BAD_GATEWAY).json({ message: error });
+  }
+};
+
+module.exports = { getAllTasks, createTask, getTaskById, updateTaskById };
