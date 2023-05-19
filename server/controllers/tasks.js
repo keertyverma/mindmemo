@@ -15,7 +15,7 @@ const validateTask = (task) => {
 
 const getAllTasks = async (req, res) => {
   logger.debug("GET Request -> Getting all tasks");
-  const tasks = await Task.find().select({ __v: 0 });
+  const tasks = await Task.find().sort({ created_at: -1 }).select({ __v: 0 });
   res.status(StatusCodes.OK).json(tasks);
 };
 
@@ -30,7 +30,7 @@ const createTask = async (req, res) => {
 
   const { title, content } = req.body;
 
-  const result = await Task.create({ title, content });
+  const result = await Task.create({ title, content, created_at: new Date() });
   res.status(StatusCodes.CREATED).json(result);
 };
 

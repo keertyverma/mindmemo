@@ -15,6 +15,9 @@ const taskSchema = new mongoose.Schema({
       "Please check your data entry, no content specified for task!",
     ],
   },
+  created_at: {
+    type: Date,
+  },
 });
 
 const Task = mongoose.model("Task", taskSchema);
