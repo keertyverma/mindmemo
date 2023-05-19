@@ -1,7 +1,6 @@
 require("dotenv").config({ path: __dirname + "/.env" });
 require("express-async-errors");
 const express = require("express");
-const config = require("config");
 const mongoose = require("mongoose");
 
 const logger = require("./utils/logger");
@@ -17,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use(`/${config.get("server.app_name")}/api`, routes);
+app.use("/api", routes);
 
 // error handler
 app.use(notFound);
