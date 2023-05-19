@@ -2,6 +2,7 @@ require("dotenv").config({ path: __dirname + "/.env" });
 require("express-async-errors");
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const logger = require("./utils/logger");
 const routes = require("./routes");
@@ -14,6 +15,7 @@ const app = express();
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // routes
 app.use("/api", routes);

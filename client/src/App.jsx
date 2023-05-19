@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
+import useNotes from "./hooks/useTasks";
 
 function App() {
   const [notes, setNotes] = useState([]);
+
+  const { data, isFetching, error } = useNotes();
+
+  console.log("data = ", data);
+  useEffect(() => {
+    if (data && data.length !== 0) {
+      setNotes([...data]);
+    }
+  }, [data]);
+
+  if (isFetching) return <p className="loading">Loading...</p>;
+
+  if (error) return null;
 
   return (
     <>
@@ -15,7 +29,7 @@ function App() {
         onAdd={(newNote) => setNotes((prevNotes) => [newNote, ...prevNotes])}
       />
       <div className="notes">
-        {notes.map((note, index) => (
+        {notes?.map((note, index) => (
           <Note
             key={index}
             id={index}
