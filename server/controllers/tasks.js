@@ -1,6 +1,7 @@
-const { Task } = require("../models/task");
 const { StatusCodes } = require("http-status-codes");
+const { Task } = require("../models/task");
 const logger = require("../utils/logger");
+const { NotFoundError } = require("../errors");
 
 const getAllTasks = async (req, res) => {
   logger.debug("GET Request -> Getting all tasks");
@@ -21,13 +22,12 @@ const getTaskById = async (req, res) => {
 
   const id = req.params.id;
   const task = await Task.findById(id);
-  if (task) {
-    res.status(StatusCodes.OK).json(task);
-  } else {
+  if (!task) {
     const error = `No task found with id = ${id}`;
     logger.error(error);
-    res.status(StatusCodes.NOT_FOUND).json({ message: error });
+    throw new NotFoundError(error);
   }
+  res.status(StatusCodes.OK).json(task);
 };
 
 const updateTaskById = async (req, res) => {
@@ -40,13 +40,13 @@ const updateTaskById = async (req, res) => {
     { new: true }
   );
 
-  if (updatedTask) {
-    res.status(StatusCodes.OK).json(updatedTask);
-  } else {
+  if (!updatedTask) {
     const error = `No task found with id = ${id}`;
     logger.error(error);
-    res.status(StatusCodes.NOT_FOUND).json({ message: error });
+    throw new NotFoundError(error);
   }
+
+  res.status(StatusCodes.OK).json(updatedTask);
 };
 
 const deleteTaskById = async (req, res) => {
@@ -55,13 +55,13 @@ const deleteTaskById = async (req, res) => {
   id = req.params.id;
   const deletedTask = await Task.findByIdAndDelete(id);
 
-  if (deletedTask) {
-    res.status(StatusCodes.OK).json(deletedTask);
-  } else {
+  if (!deletedTask) {
     const error = `No task found with id = ${id}`;
     logger.error(error);
-    res.status(StatusCodes.NOT_FOUND).json({ message: error });
+    throw new NotFoundError(error);
   }
+
+  res.status(StatusCodes.OK).json(deletedTask);
 };
 
 module.exports = {
