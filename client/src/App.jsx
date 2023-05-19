@@ -4,19 +4,14 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
-import useNotes from "./hooks/useTasks";
+import useNotes from "./hooks/useNotes";
 
 function App() {
-  const [notes, setNotes] = useState([]);
+  // const [notes, setNotes] = useState([]);
 
   const { data, isFetching, error } = useNotes();
 
   console.log("data = ", data);
-  useEffect(() => {
-    if (data && data.length !== 0) {
-      setNotes([...data]);
-    }
-  }, [data]);
 
   if (isFetching) return <p className="loading">Loading...</p>;
 
@@ -25,21 +20,20 @@ function App() {
   return (
     <>
       <Header />
-      <NoteForm
-        onAdd={(newNote) => setNotes((prevNotes) => [newNote, ...prevNotes])}
-      />
+      <NoteForm />
+
       <div className="notes">
-        {notes?.map((note, index) => (
+        {data?.map((note, index) => (
           <Note
             key={index}
             id={index}
             title={note.title}
             content={note.content}
-            onDelete={(id) =>
-              setNotes((prevNotes) =>
-                prevNotes.filter((note, index) => index !== id)
-              )
-            }
+            // onDelete={(id) =>
+            //   setNotes((prevNotes) =>
+            //     prevNotes.filter((note, index) => index !== id)
+            //   )
+            // }
           />
         ))}
       </div>

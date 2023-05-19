@@ -35,6 +35,13 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.addnote-error {
+  color: rgb(166, 79, 79);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 760px) {
   .create-note {
     width: 70%;
@@ -50,5 +57,9 @@
     font-size: 1.5rem;
     width: 25px;
     height: 25px;
+  }
+
+  .addnote-error {
+    font-size: 1.3rem;
   }
 }
