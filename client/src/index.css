@@ -1,0 +1,19 @@
+@import "https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Karla:wght@700&display=swap";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* 62.5% of 16px = 10px */
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  padding: 0 1.6rem;
+  background-color: #eee;
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+}
