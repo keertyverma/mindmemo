@@ -5,7 +5,7 @@ const { NotFoundError } = require("../errors");
 
 const getAllTasks = async (req, res) => {
   logger.debug("GET Request -> Getting all tasks");
-  const tasks = await Task.find();
+  const tasks = await Task.find().select({ __v: 0 });
   res.status(StatusCodes.OK).json(tasks);
 };
 
@@ -21,7 +21,7 @@ const getTaskById = async (req, res) => {
   logger.debug("GET Request -> Get task by id");
 
   const id = req.params.id;
-  const task = await Task.findById(id);
+  const task = await Task.findById(id).select({ __v: 0 });
   if (!task) {
     const error = `No task found with id = ${id}`;
     logger.error(error);
@@ -38,7 +38,7 @@ const updateTaskById = async (req, res) => {
     id,
     { title: req.body.title, content: req.body.content },
     { new: true }
-  );
+  ).select({ __v: 0 });
 
   if (!updatedTask) {
     const error = `No task found with id = ${id}`;
@@ -53,7 +53,7 @@ const deleteTaskById = async (req, res) => {
   logger.debug("DELETE Request -> Delete task by ID");
 
   id = req.params.id;
-  const deletedTask = await Task.findByIdAndDelete(id);
+  const deletedTask = await Task.findByIdAndDelete(id).select({ __v: 0 });
 
   if (!deletedTask) {
     const error = `No task found with id = ${id}`;
