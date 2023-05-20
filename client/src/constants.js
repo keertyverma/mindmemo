@@ -1,3 +1,5 @@
+//TODO: move config details to .env file
+
 const constant = {
   appwrite: {
     endpoint: "https://cloud.appwrite.io/v1",
