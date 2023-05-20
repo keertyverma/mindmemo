@@ -8,6 +8,7 @@ const useNotes = () =>
   useQuery({
     queryKey: ["notes"],
     queryFn: fetchNotes,
+    refetchOnWindowFocus: false,
   });
 
 export default useNotes;

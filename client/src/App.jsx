@@ -7,36 +7,29 @@ import Note from "./components/Note/Note";
 import useNotes from "./hooks/useNotes";
 
 function App() {
-  // const [notes, setNotes] = useState([]);
-
   const { data, isFetching, error } = useNotes();
-
-  console.log("data = ", data);
-
-  if (isFetching) return <p className="loading">Loading...</p>;
-
-  if (error) return null;
 
   return (
     <>
       <Header />
       <NoteForm />
 
-      <div className="notes">
-        {data?.map((note, index) => (
-          <Note
-            key={index}
-            id={index}
-            title={note.title}
-            content={note.content}
-            // onDelete={(id) =>
-            //   setNotes((prevNotes) =>
-            //     prevNotes.filter((note, index) => index !== id)
-            //   )
-            // }
-          />
-        ))}
-      </div>
+      {isFetching ? (
+        <p className="loading">Loading...</p>
+      ) : (
+        <div className="notes">
+          {data?.map((note, index) => (
+            <Note
+              key={note ? note._id : index}
+              id={note ? note._id : index}
+              title={note.title}
+              content={note.content}
+            />
+          ))}
+        </div>
+      )}
+
+      {error && <p className="fetch-error">Unable to fetch notes.</p>}
 
       <Footer />
     </>

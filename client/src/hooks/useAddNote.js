@@ -14,7 +14,11 @@ const useAddNote = () => {
       const previousNotes = queryClient.getQueryData(["notes"]) || [];
 
       // update data in cache
-      queryClient.setQueryData(["notes"], (notes) => [newNote, ...notes]);
+      // _id is added to identify and update this later with server data
+      queryClient.setQueryData(["notes"], (notes) => [
+        { ...newNote, _id: 0 },
+        ...notes,
+      ]);
 
       // return context object
       return { previousNotes };
@@ -23,14 +27,13 @@ const useAddNote = () => {
     onSuccess: (savedNote, newNote) => {
       // update data in cache with server data
       queryClient.setQueryData(["notes"], (notes) =>
-        notes?.map((note) => (note === newNote ? savedNote : note))
+        notes?.map((note) => (!note._id ? savedNote : note))
       );
     },
 
     onError: (error, newNote, context) => {
       if (!context) return;
 
-      console.log("request failed...");
       // revert back to previous data
       queryClient.setQueryData(["notes"], context.previousNotes);
     },

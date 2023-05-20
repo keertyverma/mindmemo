@@ -41,6 +41,12 @@
   color: #104957;
 }
 
+.deletenote-error {
+  color: rgb(166, 79, 79);
+  font-size: 1rem;
+  text-align: right;
+}
+
 @media screen and (max-width: 760px) {
   .note {
     width: 40%;
