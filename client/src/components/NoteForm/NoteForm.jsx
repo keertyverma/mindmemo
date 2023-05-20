@@ -1,22 +1,37 @@
 import { useRef, useState } from "react";
 import { BsCardChecklist } from "react-icons/bs";
-import "./NoteForm.css";
-import useAddNote from "../../hooks/useAddNote";
+import { Databases, ID } from "appwrite";
 
-function NoteForm() {
+import "./NoteForm.css";
+import AppwriteClient from "../../services/appwrite-client";
+import constant from "../../constants";
+
+function NoteForm({ onAdd }) {
   const [isExpanded, setExpanded] = useState(false);
   const titleRef = useRef();
   const contentRef = useRef();
 
-  const addNote = useAddNote();
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addNote.mutate({
+    const note = {
       title: titleRef.current?.value,
       content: contentRef.current?.value,
-    });
+    };
+
+    // Create data using appwrite database service
+    const { databaseID, collectionID } = constant.appwrite;
+    const databases = new Databases(AppwriteClient);
+    databases
+      .createDocument(databaseID, collectionID, ID.unique(), note)
+      .then((res) =>
+        onAdd({
+          id: res.$id,
+          title: res.title,
+          content: res.content,
+        })
+      )
+      .catch((err) => console.log("err = ", err));
 
     setExpanded(false);
 
@@ -31,7 +46,6 @@ function NoteForm() {
         <BsCardChecklist />
         <p>Take a note</p>
       </h3>
-      {addNote.error && <p className="addnote-error">Failed to add note!</p>}
       <form className="create-note" onSubmit={handleSubmit}>
         <input
           ref={titleRef}
@@ -48,9 +62,7 @@ function NoteForm() {
               placeholder="Add description..."
               required
             />
-            <button type="submit" disabled={addNote.isLoading}>
-              +
-            </button>
+            <button type="submit">+</button>
           </>
         )}
       </form>
