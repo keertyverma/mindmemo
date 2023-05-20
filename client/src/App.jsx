@@ -7,7 +7,7 @@ import Note from "./components/Note/Note";
 import useNotes from "./hooks/useNotes";
 
 function App() {
-  const { data, isFetching, error } = useNotes();
+  const { data: notes, isFetching, error } = useNotes();
 
   return (
     <>
@@ -18,7 +18,7 @@ function App() {
         <p className="loading">Loading...</p>
       ) : (
         <div className="notes">
-          {data?.map((note, index) => (
+          {notes?.map((note, index) => (
             <Note
               key={note ? note._id : index}
               id={note ? note._id : index}

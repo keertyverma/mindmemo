@@ -18,6 +18,7 @@ function NoteForm() {
     });
 
     setExpanded(false);
+
     // reset form data
     titleRef.current.value = "";
     contentRef.current.value = "";
