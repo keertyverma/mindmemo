@@ -26,23 +26,28 @@ function NoteForm() {
 
   return (
     <>
+      <h3 className="create-note-title">Take a note</h3>
       {addNote.error && <p className="addnote-error">Failed to add note!</p>}
       <form className="create-note" onSubmit={handleSubmit}>
-        {isExpanded && (
-          <input ref={titleRef} name="title" placeholder="Title" required />
-        )}
-
-        <textarea
-          ref={contentRef}
+        <input
+          ref={titleRef}
+          name="title"
           onClick={() => setExpanded(true)}
-          rows={isExpanded ? "3" : "1"}
-          placeholder="Take a note..."
+          placeholder="Title"
           required
         />
         {isExpanded && (
-          <button type="submit" disabled={addNote.isLoading}>
-            +
-          </button>
+          <>
+            <textarea
+              ref={contentRef}
+              rows={isExpanded ? "3" : "1"}
+              placeholder="Add description..."
+              required
+            />
+            <button type="submit" disabled={addNote.isLoading}>
+              +
+            </button>
+          </>
         )}
       </form>
     </>
