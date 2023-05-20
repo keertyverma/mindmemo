@@ -9,7 +9,7 @@
   width: 300px;
   height: 200px;
   padding: 1rem;
-  background: #b7d1cb;
+  background: #fff;
   border-radius: 7px;
   box-shadow: 0 1px 5px rgb(138, 137, 137);
   margin: 2rem;
@@ -20,14 +20,12 @@
 .note .title {
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
-  color: #58379a;
 }
 
 .note .content {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   word-wrap: break-word;
-  color: #2a184e;
 }
 
 .note button {
@@ -35,14 +33,14 @@
   float: right;
   margin-right: 1rem;
   border-radius: 10px;
-  background: #e6e2e2;
+  background: #ebeaea;
   width: 30px;
   height: 30px;
   font-size: 1.5rem;
   border: none;
   outline: none;
   cursor: pointer;
-  color: #104957;
+  color: #f5ba13;
 }
 
 .deletenote-error {

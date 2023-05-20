@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { BsCardChecklist } from "react-icons/bs";
 import "./NoteForm.css";
 import useAddNote from "../../hooks/useAddNote";
 
@@ -26,7 +27,10 @@ function NoteForm() {
 
   return (
     <>
-      <h3 className="create-note-title">Take a note</h3>
+      <h3 className="create-note-title">
+        <BsCardChecklist />
+        <p>Take a note</p>
+      </h3>
       {addNote.error && <p className="addnote-error">Failed to add note!</p>}
       <form className="create-note" onSubmit={handleSubmit}>
         <input
