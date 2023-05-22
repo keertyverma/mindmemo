@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
@@ -64,6 +64,9 @@ function Login() {
         </div>
 
         <button type="submit">Login</button>
+        <p className="signup-link">
+          Not Registed ? <Link to="/signup">Sign Up</Link>
+        </p>
       </form>
     </>
   );

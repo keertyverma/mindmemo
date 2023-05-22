@@ -19,7 +19,6 @@ function Profile() {
       .catch((err) => setError(err.message));
   }, []);
 
-  console.log("user details = ", userDetail);
   return (
     <>
       {userDetail.$id ? (

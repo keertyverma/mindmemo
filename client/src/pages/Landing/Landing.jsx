@@ -1,8 +1,16 @@
+import { useNavigate } from "react-router-dom";
+
+import appWriteService from "../../services/appwriteService";
 import "./Landing.css";
 
 function Landing() {
+  const navigate = useNavigate();
+
   const handleClick = () => {
-    console.log("handle auth");
+    appWriteService
+      .getCurrentUser()
+      .then((res) => navigate("/profile"))
+      .catch((err) => navigate("/login"));
   };
 
   return (

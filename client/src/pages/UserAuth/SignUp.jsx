@@ -17,7 +17,7 @@ function SignUp() {
     appWriteService
       .createAccount(data.email, data.password, data.name)
       .then((res) => {
-        navigate("/profile");
+        navigate("/login");
       })
       .catch((err) => setError("User with this email is already registered."));
   };
