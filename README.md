@@ -1,5 +1,7 @@
 # mindmemo
 
+Deployed on Vercel -> [mindmemo](https://mindmemo.vercel.app/)
+
 To manage task. User should be able to
 
 - Create task
