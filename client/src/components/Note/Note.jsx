@@ -1,18 +1,13 @@
 import { MdDelete } from "react-icons/md";
-import { Databases } from "appwrite";
 
+import appWriteService from "../../services/appwriteService";
 import "./Note.css";
-import AppwriteClient from "../../services/appwrite-client";
-import constant from "../../constants";
 
 function Note({ id, title, content, onDelete }) {
   const handleDelete = () => {
     // Delete data using appwrite database service
-    const { databaseID, collectionID } = constant.appwrite;
-    const databases = new Databases(AppwriteClient);
-
-    databases
-      .deleteDocument(databaseID, collectionID, id)
+    appWriteService
+      .deleteNoteById(id)
       .then((res) => {
         onDelete(id);
       })

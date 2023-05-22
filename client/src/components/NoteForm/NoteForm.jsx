@@ -1,10 +1,8 @@
 import { useRef, useState } from "react";
 import { BsCardChecklist } from "react-icons/bs";
-import { Databases, ID } from "appwrite";
 
+import appWriteService from "../../services/appwriteService";
 import "./NoteForm.css";
-import AppwriteClient from "../../services/appwrite-client";
-import constant from "../../constants";
 
 function NoteForm({ onAdd }) {
   const [isExpanded, setExpanded] = useState(false);
@@ -20,10 +18,8 @@ function NoteForm({ onAdd }) {
     };
 
     // Create data using appwrite database service
-    const { databaseID, collectionID } = constant.appwrite;
-    const databases = new Databases(AppwriteClient);
-    databases
-      .createDocument(databaseID, collectionID, ID.unique(), note)
+    appWriteService
+      .createNote(note)
       .then((res) =>
         onAdd({
           id: res.$id,

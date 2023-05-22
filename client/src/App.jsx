@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { Databases, Query } from "appwrite";
 
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
-import AppwriteClient from "./services/appwrite-client";
-import constant from "./constants";
+import appWriteService from "./services/appwriteService";
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -15,17 +13,11 @@ function App() {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
-    const { databaseID, collectionID } = constant.appwrite;
-    const databases = new Databases(AppwriteClient);
-
     setLoading(true);
 
     // Retrieve data using appwrite database service
-    databases
-      .listDocuments(databaseID, collectionID, [
-        Query.orderDesc("$createdAt"),
-        // Query.select(["title", "content"]),
-      ])
+    appWriteService
+      .getNotes()
       .then((res) => {
         setNotes(
           res.documents?.map((n) => ({
