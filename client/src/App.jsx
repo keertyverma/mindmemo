@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -18,10 +17,10 @@ function App() {
         <p className="loading">Loading...</p>
       ) : (
         <div className="notes">
-          {notes?.map((note, index) => (
+          {notes?.map((note) => (
             <Note
-              key={note ? note._id : index}
-              id={note ? note._id : index}
+              key={note.id}
+              id={note.id}
               title={note.title}
               content={note.content}
             />

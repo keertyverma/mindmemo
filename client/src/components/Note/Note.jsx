@@ -1,9 +1,14 @@
 import { MdDelete } from "react-icons/md";
-import "./Note.css";
+
 import useDeleteNote from "../../hooks/useDeleteNote";
+import "./Note.css";
 
 function Note({ id, title, content }) {
   const deleteNote = useDeleteNote();
+
+  const handleDelete = () => {
+    deleteNote.mutate(id);
+  };
 
   return (
     <>
@@ -18,10 +23,7 @@ function Note({ id, title, content }) {
 
         <div className="note-header">
           <h2 className="title">{title}</h2>
-          <button
-            onClick={() => deleteNote.mutate(id)}
-            disabled={deleteNote.isLoading}
-          >
+          <button onClick={handleDelete} disabled={deleteNote.isLoading}>
             <MdDelete />
           </button>
         </div>

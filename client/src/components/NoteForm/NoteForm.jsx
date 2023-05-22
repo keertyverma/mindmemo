@@ -1,7 +1,8 @@
 import { useRef, useState } from "react";
 import { BsCardChecklist } from "react-icons/bs";
-import "./NoteForm.css";
+
 import useAddNote from "../../hooks/useAddNote";
+import "./NoteForm.css";
 
 function NoteForm() {
   const [isExpanded, setExpanded] = useState(false);
@@ -13,10 +14,13 @@ function NoteForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    addNote.mutate({
+    const note = {
       title: titleRef.current?.value,
       content: contentRef.current?.value,
-    });
+    };
+
+    // Create data using appwrite database service
+    addNote.mutate(note);
 
     setExpanded(false);
 
