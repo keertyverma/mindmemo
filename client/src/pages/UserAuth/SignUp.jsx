@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import "./../../app.css";
 import "./auth.css";
 import Header from "../../components/Header";
 import appWriteService from "../../services/appwriteService";
