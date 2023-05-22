@@ -1,4 +1,4 @@
-import { Client, Databases, Query, ID } from "appwrite";
+import { Client, Databases, Query, ID, Account } from "appwrite";
 import constant from "../constants";
 
 const { endpoint, projectID, databaseID, collectionID } = constant.appwrite;
@@ -6,6 +6,7 @@ const { endpoint, projectID, databaseID, collectionID } = constant.appwrite;
 const client = new Client().setEndpoint(endpoint).setProject(projectID);
 
 const databases = new Databases(client);
+const account = new Account(client);
 
 const appWriteService = {
   getNotes: () =>
@@ -18,6 +19,9 @@ const appWriteService = {
 
   deleteNoteById: (id) =>
     databases.deleteDocument(databaseID, collectionID, id),
+
+  createAccount: (email, password, name) =>
+    account.create("unique()", email, password, name),
 };
 
 export default appWriteService;
