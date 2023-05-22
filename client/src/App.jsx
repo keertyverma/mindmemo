@@ -1,48 +1,19 @@
-import { useState, useEffect } from "react";
-
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
-import appWriteService from "./services/appwriteService";
+import useNotes from "./hooks/useNotes";
 
 function App() {
-  const [notes, setNotes] = useState([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    // Retrieve data using appwrite database service
-    appWriteService
-      .getNotes()
-      .then((res) => {
-        setNotes(
-          res.documents?.map((n) => ({
-            title: n.title,
-            content: n.content,
-            id: n.$id,
-          }))
-        );
-        setError("");
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  const { data: notes, isFetching, error } = useNotes();
 
   return (
     <>
       <Header />
-      <NoteForm
-        onAdd={(newNote) => setNotes((prevNotes) => [newNote, ...prevNotes])}
-      />
+      <NoteForm />
 
-      {isLoading ? (
+      {isFetching ? (
         <p className="loading">Loading...</p>
       ) : (
         <div className="notes">
@@ -52,11 +23,6 @@ function App() {
               id={note.id}
               title={note.title}
               content={note.content}
-              onDelete={(id) =>
-                setNotes((prevNotes) =>
-                  prevNotes.filter((note) => note.id !== id)
-                )
-              }
             />
           ))}
         </div>

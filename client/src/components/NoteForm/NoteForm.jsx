@@ -1,13 +1,15 @@
 import { useRef, useState } from "react";
 import { BsCardChecklist } from "react-icons/bs";
 
-import appWriteService from "../../services/appwriteService";
+import useAddNote from "../../hooks/useAddNote";
 import "./NoteForm.css";
 
-function NoteForm({ onAdd }) {
+function NoteForm() {
   const [isExpanded, setExpanded] = useState(false);
   const titleRef = useRef();
   const contentRef = useRef();
+
+  const addNote = useAddNote();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,16 +20,7 @@ function NoteForm({ onAdd }) {
     };
 
     // Create data using appwrite database service
-    appWriteService
-      .createNote(note)
-      .then((res) =>
-        onAdd({
-          id: res.$id,
-          title: res.title,
-          content: res.content,
-        })
-      )
-      .catch((err) => console.log("err = ", err));
+    addNote.mutate(note);
 
     setExpanded(false);
 
@@ -42,6 +35,7 @@ function NoteForm({ onAdd }) {
         <BsCardChecklist />
         <p>Take a note</p>
       </h3>
+      {addNote.error && <p className="addnote-error">Failed to add note!</p>}
       <form className="create-note" onSubmit={handleSubmit}>
         <input
           ref={titleRef}
@@ -58,7 +52,9 @@ function NoteForm({ onAdd }) {
               placeholder="Add description..."
               required
             />
-            <button type="submit">+</button>
+            <button type="submit" disabled={addNote.isLoading}>
+              +
+            </button>
           </>
         )}
       </form>

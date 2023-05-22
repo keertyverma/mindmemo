@@ -1,25 +1,29 @@
 import { MdDelete } from "react-icons/md";
 
-import appWriteService from "../../services/appwriteService";
+import useDeleteNote from "../../hooks/useDeleteNote";
 import "./Note.css";
 
-function Note({ id, title, content, onDelete }) {
+function Note({ id, title, content }) {
+  const deleteNote = useDeleteNote();
+
   const handleDelete = () => {
-    // Delete data using appwrite database service
-    appWriteService
-      .deleteNoteById(id)
-      .then((res) => {
-        onDelete(id);
-      })
-      .catch((err) => console.log("err = ", err));
+    deleteNote.mutate(id);
   };
 
   return (
     <>
       <div className="note">
+        {deleteNote.isLoading ? (
+          <p>Deleting...</p>
+        ) : (
+          deleteNote.error && (
+            <p className="deletenote-error">Failed to delete note!</p>
+          )
+        )}
+
         <div className="note-header">
           <h2 className="title">{title}</h2>
-          <button onClick={handleDelete}>
+          <button onClick={handleDelete} disabled={deleteNote.isLoading}>
             <MdDelete />
           </button>
         </div>

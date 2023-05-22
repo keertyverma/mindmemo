@@ -1,8 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
-import apiClient from "../services/api-client";
+import appWriteService from "../services/appwriteService";
 
-const fetchNotes = () => apiClient.get("/tasks").then((res) => res.data);
+const fetchNotes = () =>
+  appWriteService.getNotes().then((res) =>
+    res.documents?.map((n) => ({
+      title: n.title,
+      content: n.content,
+      id: n.$id,
+    }))
+  );
 
 const useNotes = () =>
   useQuery({

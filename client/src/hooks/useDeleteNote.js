@@ -1,11 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiClient from "../services/api-client";
+import appWriteService from "../services/appwriteService";
 
 const useDeleteNote = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id) => apiClient.delete(`/tasks/${id}`),
+    // Delete note using appwrite database service
+    mutationFn: (id) => appWriteService.deleteNoteById(id),
 
     onMutate: (id) => {
       // take backup
@@ -13,7 +14,7 @@ const useDeleteNote = () => {
 
       // delete note from cache data
       queryClient.setQueryData(["notes"], (notes) =>
-        notes.filter((n) => n._id !== id)
+        notes.filter((n) => n.id !== id)
       );
 
       return { previousNotes };

@@ -1,12 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import apiClient from "../services/api-client";
+import appWriteService from "../services/appwriteService";
 
 const useAddNote = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
+    // Add note using appwrite database service
     mutationFn: (newNote) =>
-      apiClient.post("/tasks", newNote).then((res) => res.data),
+      appWriteService.createNote(newNote).then((res) => ({
+        id: res.$id,
+        title: res.title,
+        content: res.content,
+      })),
 
     onMutate: (newNote) => {
       // executed before mutationFn
@@ -14,9 +19,9 @@ const useAddNote = () => {
       const previousNotes = queryClient.getQueryData(["notes"]) || [];
 
       // update data in cache
-      // _id is added to identify and update this later with server data
+      // id is added to identify and update this later with server data
       queryClient.setQueryData(["notes"], (notes) => [
-        { ...newNote, _id: 0 },
+        { ...newNote, id: 0 },
         ...notes,
       ]);
 
@@ -27,7 +32,7 @@ const useAddNote = () => {
     onSuccess: (savedNote, newNote) => {
       // update data in cache with server data
       queryClient.setQueryData(["notes"], (notes) =>
-        notes?.map((note) => (!note._id ? savedNote : note))
+        notes?.map((note) => (!note.id ? savedNote : note))
       );
     },
 
