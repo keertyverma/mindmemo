@@ -22,6 +22,12 @@ const appWriteService = {
 
   createAccount: (email, password, name) =>
     account.create("unique()", email, password, name),
+
+  login: (email, password) => account.createEmailSession(email, password),
+
+  getCurrentUser: () => account.get(),
+
+  logout: () => account.deleteSession("current"),
 };
 
 export default appWriteService;

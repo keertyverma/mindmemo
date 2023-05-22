@@ -20,7 +20,7 @@
   resize: none;
 }
 
-.create-note button {
+.create-note .add-note-btn {
   position: absolute;
   right: 1.5rem;
   bottom: -1rem;
@@ -64,7 +64,7 @@
     font-size: 1.3rem;
   }
 
-  .create-note button {
+  .create-note .add-note-btn {
     font-size: 1.5rem;
     width: 25px;
     height: 25px;

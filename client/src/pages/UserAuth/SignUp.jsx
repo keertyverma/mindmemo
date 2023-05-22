@@ -25,7 +25,7 @@ function SignUp() {
   return (
     <>
       <Header />
-      <h2 className="signup-title">Sign Up</h2>
+      <h2 className="auth-title">Sign Up</h2>
 
       <form
         className="signup-form"

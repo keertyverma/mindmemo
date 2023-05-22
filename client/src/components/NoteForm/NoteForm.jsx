@@ -52,7 +52,11 @@ function NoteForm() {
               placeholder="Add description..."
               required
             />
-            <button type="submit" disabled={addNote.isLoading}>
+            <button
+              className="add-note-btn"
+              type="submit"
+              disabled={addNote.isLoading}
+            >
               +
             </button>
           </>

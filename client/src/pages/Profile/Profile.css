@@ -1,0 +1,15 @@
+.re-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 3rem;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 760px) {
+  .re-login {
+    font-size: 2rem;
+  }
+}

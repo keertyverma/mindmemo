@@ -37,6 +37,31 @@ footer .copyright {
   color: rgb(166, 79, 79);
 }
 
+.logout {
+  display: flex;
+  justify-content: flex-end;
+  margin: 2rem 3rem auto auto;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #233337;
+  padding: 0.5rem;
+  outline: 0;
+  border: 1px solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #233337;
+  color: #fff;
+}
+
+.user-info {
+  font-size: 2rem;
+  text-align: left;
+  margin: 2rem auto auto 3rem;
+}
+
 @media screen and (max-width: 760px) {
   header h1 {
     font-size: 2.5rem;
@@ -45,5 +70,13 @@ footer .copyright {
 
   footer {
     font-size: 1.2rem;
+  }
+
+  .logout {
+    font-size: 1.5rem;
+  }
+
+  .user-info {
+    font-size: 1.5rem;
   }
 }
