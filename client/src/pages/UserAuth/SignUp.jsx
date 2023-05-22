@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 
 import "./../../app.css";
 import "./auth.css";
@@ -8,6 +9,7 @@ import appWriteService from "../../services/appwriteService";
 
 function SignUp() {
   const { register, handleSubmit, reset } = useForm();
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -17,13 +19,14 @@ function SignUp() {
       .then((res) => {
         navigate("/profile");
       })
-      .catch((err) => console.log("error = ", err));
+      .catch((err) => setError("User with this email is already registered."));
   };
 
   return (
     <>
       <Header />
       <h2 className="signup-title">Sign Up</h2>
+
       <form
         className="signup-form"
         onSubmit={handleSubmit((data) => {
@@ -31,7 +34,7 @@ function SignUp() {
           reset();
         })}
       >
-        <div></div>
+        {error && <p className="user-error">{error}</p>}
         <div className="form-field">
           <label className="form-label" htmlFor="name">
             Name

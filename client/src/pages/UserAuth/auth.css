@@ -60,10 +60,18 @@ form button {
   margin-top: 2rem;
 }
 
+.user-error {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(206, 106, 106);
+  margin-bottom: 2rem;
+}
+
 @media screen and (max-width: 760px) {
   header {
     margin-right: -3rem;
   }
+
   .signup-form {
     width: 350px;
     padding: 1.5rem 1rem;
@@ -78,7 +86,16 @@ form button {
     font-size: 1.5rem;
     margin-right: 0.8rem;
   }
+
+  .form-control {
+    font-size: 1.5rem;
+  }
+
   .form-field {
     width: 100%;
+  }
+
+  .user-error {
+    font-size: 1.6rem;
   }
 }
