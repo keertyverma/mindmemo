@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import "./auth.css";
 import Header from "../../components/Header";
-import appWriteService from "../../services/appwriteService";
+import authService from "../../services/authService";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
@@ -13,10 +13,9 @@ function Login() {
   const navigate = useNavigate();
 
   const loginUser = (data) => {
-    appWriteService
+    authService
       .login(data.email, data.password)
       .then((res) => {
-        console.log("res = ", res);
         navigate("/profile");
       })
       .catch((err) => setError("Invalid email or password."));

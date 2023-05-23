@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-import appWriteService from "../../services/appwriteService";
+import authService from "../../services/authService";
 import "./Landing.css";
 
 function Landing() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    appWriteService
+    authService
       .getCurrentUser()
       .then((res) => navigate("/profile"))
       .catch((err) => navigate("/login"));

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import "./auth.css";
 import Header from "../../components/Header";
-import appWriteService from "../../services/appwriteService";
+import authService from "../../services/authService";
 
 function SignUp() {
   const { register, handleSubmit, reset } = useForm();
@@ -13,7 +13,7 @@ function SignUp() {
   const navigate = useNavigate();
 
   const signupUser = (data) => {
-    appWriteService
+    authService
       .createAccount(data.email, data.password, data.name)
       .then((res) => {
         navigate("/login");

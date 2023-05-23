@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import appWriteService from "../services/appwriteService";
+import databaseService from "../services/databaseService";
 
 const useAddNote = () => {
   const queryClient = useQueryClient();
@@ -7,7 +7,7 @@ const useAddNote = () => {
   return useMutation({
     // Add note using appwrite database service
     mutationFn: (newNote) =>
-      appWriteService.createNote(newNote).then((res) => ({
+      databaseService.createNote(newNote).then((res) => ({
         id: res.$id,
         title: res.title,
         content: res.content,

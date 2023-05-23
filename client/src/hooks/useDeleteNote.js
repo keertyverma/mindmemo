@@ -1,12 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import appWriteService from "../services/appwriteService";
+import databaseService from "../services/databaseService";
 
 const useDeleteNote = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
     // Delete note using appwrite database service
-    mutationFn: (id) => appWriteService.deleteNoteById(id),
+    mutationFn: (id) => databaseService.deleteNoteById(id),
 
     onMutate: (id) => {
       // take backup

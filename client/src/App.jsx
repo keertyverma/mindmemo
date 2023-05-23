@@ -7,14 +7,14 @@ import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
 import Logout from "./pages/UserAuth/Logout";
 import useNotes from "./hooks/useNotes";
-import appWriteService from "./services/appwriteService";
+import authService from "./services/authService";
 
 function App() {
   const { data: notes, isFetching, error } = useNotes();
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    appWriteService.getCurrentUser().then((res) => setUser(res));
+    authService.getCurrentUser().then((res) => setUser(res));
   }, []);
 
   return (

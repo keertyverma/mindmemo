@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import appWriteService from "../../services/appwriteService";
+import authService from "../../services/authService";
 
 function Logout() {
   const navigate = useNavigate();
 
   const logout = () => {
-    appWriteService.logout().then((res) => {
+    authService.logout().then((res) => {
       navigate("/");
     });
   };

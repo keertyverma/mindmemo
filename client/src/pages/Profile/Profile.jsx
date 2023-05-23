@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import App from "../../App";
-import appWriteService from "../../services/appwriteService";
+import authService from "../../services/authService";
 import "./Profile.css";
 
 function Profile() {
@@ -11,7 +11,7 @@ function Profile() {
 
   useEffect(() => {
     // get currently logged in user data
-    appWriteService
+    authService
       .getCurrentUser()
       .then((res) => {
         setUserDetail(res);

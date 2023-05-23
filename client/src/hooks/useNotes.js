@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-import appWriteService from "../services/appwriteService";
+import databaseService from "../services/databaseService";
 
 const fetchNotes = () =>
-  appWriteService.getNotes().then((res) =>
+  databaseService.getNotes().then((res) =>
     res.documents?.map((n) => ({
       title: n.title,
       content: n.content,
