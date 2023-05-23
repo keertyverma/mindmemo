@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../../components/Header";
-import useSignup from "../../hooks/auth/useSignUp";
+import useSignup from "../../hooks/auth/useSignup";
 import "./auth.css";
 
 function SignUp() {
