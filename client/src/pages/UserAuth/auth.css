@@ -65,6 +65,8 @@
 
 .signup-form button,
 .login-form button {
+  width: 100%;
+  max-width: 300px;
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
@@ -98,18 +100,36 @@
   margin-top: 2rem;
 }
 
-.other-logins p:first-of-type {
-  font-size: 1.5rem;
-}
-
 .btn-google {
-  display: inline-block;
-  outline: 0;
-  border: 0;
-  cursor: pointer;
-  background: none;
+  width: 100%;
   font-size: inherit;
   font-weight: 700;
+  outline: 0;
+  border: 0;
+  border-radius: 10px;
+  background: rgb(195, 195, 225);
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+.with-separators {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-transform: uppercase;
+  width: 30%;
+  color: rgb(118, 116, 116);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.with-separators:before,
+.with-separators:after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgb(170, 163, 163);
 }
 
 @media screen and (max-width: 760px) {
@@ -123,8 +143,12 @@
     padding: 1.5rem 1rem;
   }
 
-  .signup-title {
-    font-size: 2.5rem;
+  .auth-title {
+    font-size: 3rem;
+  }
+
+  .signup-link {
+    font-size: 1.5rem;
   }
 
   .form-label {
@@ -143,5 +167,14 @@
 
   .user-error {
     font-size: 1.6rem;
+  }
+
+  .login-form button {
+    padding: 1rem 2rem;
+    max-width: 250px;
+  }
+
+  .with-separators {
+    width: 90%;
   }
 }

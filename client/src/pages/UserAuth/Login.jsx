@@ -79,11 +79,10 @@ function Login() {
         </button>
       </form>
       <div className="other-logins">
-        <p> Or </p>
+        <p className="with-separators">Or</p>
         <p>
-          Login with{" "}
           <button className="btn-google" onClick={handleLoginWithGoogle}>
-            Google <FcGoogle />
+            <FcGoogle /> Login with Google
           </button>
         </p>
       </div>
