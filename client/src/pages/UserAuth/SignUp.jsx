@@ -1,25 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import "./auth.css";
 import Header from "../../components/Header";
-import authService from "../../services/authService";
+import useSignup from "../../hooks/auth/useSignUp";
+import "./auth.css";
 
 function SignUp() {
   const { register, handleSubmit, reset } = useForm();
-  const [error, setError] = useState("");
-
+  const signup = useSignup();
   const navigate = useNavigate();
-
-  const signupUser = (data) => {
-    authService
-      .createAccount(data.email, data.password, data.name)
-      .then((res) => {
-        navigate("/login");
-      })
-      .catch((err) => setError("User with this email is already registered."));
-  };
 
   return (
     <>
@@ -29,11 +18,26 @@ function SignUp() {
       <form
         className="signup-form"
         onSubmit={handleSubmit((data) => {
-          signupUser(data);
+          signup.mutate(
+            {
+              name: data.name,
+              email: data.email,
+              password: data.password,
+            },
+            {
+              onSuccess() {
+                navigate("/login");
+              },
+            }
+          );
           reset();
         })}
       >
-        {error && <p className="user-error">{error}</p>}
+        {signup.error && (
+          <p className="user-error">
+            User with this email is already registered.
+          </p>
+        )}
         <div className="form-field">
           <label className="form-label" htmlFor="name">
             Name
@@ -76,7 +80,9 @@ function SignUp() {
           />
         </div>
 
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={signup.isLoading}>
+          Sign Up
+        </button>
       </form>
     </>
   );

@@ -1,24 +1,25 @@
-import { useNavigate, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-import "./auth.css";
 import Header from "../../components/Header";
-import authService from "../../services/authService";
+import useLogin from "../../hooks/auth/useLogin";
+import "./auth.css";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
-  const [error, setError] = useState("");
 
+  const userLogin = useLogin();
   const navigate = useNavigate();
 
-  const loginUser = (data) => {
-    authService
-      .login(data.email, data.password)
-      .then((res) => {
-        navigate("/profile");
-      })
-      .catch((err) => setError("Invalid email or password."));
+  const handleLoginWithEmailAndPass = (email, password) => {
+    userLogin.mutate(
+      { email, password },
+      {
+        onSuccess() {
+          navigate("/profile");
+        },
+      }
+    );
   };
 
   return (
@@ -29,11 +30,15 @@ function Login() {
       <form
         className="login-form"
         onSubmit={handleSubmit((data) => {
-          loginUser(data);
+          handleLoginWithEmailAndPass(data.email, data.password);
           reset();
         })}
       >
-        {error && <p className="user-error">{error}</p>}
+        {userLogin.error && (
+          <p className="user-error">
+            Invalid credentials. Please check the email or password.
+          </p>
+        )}
         <div className="form-field">
           <label className="form-label" htmlFor="email">
             Email
@@ -61,7 +66,9 @@ function Login() {
           />
         </div>
 
-        <button type="submit">Login</button>
+        <button type="submit" disabled={userLogin.isLoading}>
+          Login
+        </button>
         <p className="signup-link">
           Not Registed ? <Link to="/signup">Sign Up</Link>
         </p>
