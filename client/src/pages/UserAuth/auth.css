@@ -49,6 +49,20 @@
   cursor: pointer;
 }
 
+.login-form {
+  width: 500px;
+  height: 30vh;
+  padding: none;
+}
+
+.login-form .form-field {
+  width: 300px;
+}
+
+.login-form .form-label {
+  margin-right: 2rem;
+}
+
 .signup-form button,
 .login-form button {
   font-size: 2rem;
@@ -71,7 +85,31 @@
 
 .signup-link {
   margin-top: 1rem;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.other-logins {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-top: 2rem;
+}
+
+.other-logins p:first-of-type {
   font-size: 1.5rem;
+}
+
+.btn-google {
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  background: none;
+  font-size: inherit;
+  font-weight: 700;
 }
 
 @media screen and (max-width: 760px) {

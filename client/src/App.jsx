@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import NoteForm from "./components/NoteForm/NoteForm";
 import Note from "./components/Note/Note";
-import Logout from "./pages/UserAuth/Logout";
+import NoteForm from "./components/NoteForm/NoteForm";
 import useNotes from "./hooks/useNotes";
+import Logout from "./pages/UserAuth/Logout";
 import authService from "./services/authService";
 
 function App() {

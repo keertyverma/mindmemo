@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form";
+import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 
 import Header from "../../components/Header";
 import useLogin from "../../hooks/auth/useLogin";
 import "./auth.css";
+import authService from "../../services/authService";
 
 function Login() {
   const { register, handleSubmit, reset } = useForm();
@@ -22,11 +24,17 @@ function Login() {
     );
   };
 
+  const handleLoginWithGoogle = () => {
+    authService.loginWithGoogle();
+  };
+
   return (
     <>
       <Header />
       <h2 className="auth-title">Login</h2>
-
+      <p className="signup-link">
+        Not Registered ? <Link to="/signup">Sign Up</Link>
+      </p>
       <form
         className="login-form"
         onSubmit={handleSubmit((data) => {
@@ -69,10 +77,16 @@ function Login() {
         <button type="submit" disabled={userLogin.isLoading}>
           Login
         </button>
-        <p className="signup-link">
-          Not Registed ? <Link to="/signup">Sign Up</Link>
-        </p>
       </form>
+      <div className="other-logins">
+        <p> Or </p>
+        <p>
+          Login with{" "}
+          <button className="btn-google" onClick={handleLoginWithGoogle}>
+            Google <FcGoogle />
+          </button>
+        </p>
+      </div>
     </>
   );
 }
