@@ -63,6 +63,15 @@ footer .copyright {
   margin: 2rem auto auto 3rem;
 }
 
+.user-avatar-img,
+.country-flag {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
 @media screen and (max-width: 760px) {
   header h1 {
     font-size: 2.5rem;

@@ -1,4 +1,4 @@
-import { Client, Databases, Query, ID, Account } from "appwrite";
+import { Client, Databases, Account, Avatars, Locale } from "appwrite";
 import constant from "../constants";
 
 const { endpoint, projectID, databaseID, collectionID } = constant.appwrite;
@@ -16,6 +16,8 @@ const client = new Client().setEndpoint(endpoint).setProject(projectID);
 const appWriteService = {
   account: new Account(client),
   databases: new Databases(client),
+  avatar: new Avatars(client),
+  locale: new Locale(client),
 };
 
 export default appWriteService;
